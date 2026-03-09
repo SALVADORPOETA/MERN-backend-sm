@@ -24,7 +24,7 @@ MERN Practice (Backend) is not just a simple server; it is a **production-ready 
 * 🌐 **CORS Enabled:** Configured for secure cross-origin communication with the frontend.
 * 🩺 **Health Check Endpoint:** Root route for instant server status monitoring.
 * 🔄 **Async/Await Flow:** Modern JavaScript patterns for clean, non-blocking code.
-* 📦 **Production Ready:** Optimized for deployment on platforms like Vercel or Heroku.
+* 📦 **Production Ready:** Optimized for deployment on Vercel.
 
 🛠️ **Tech Stack**
 
@@ -108,5 +108,6 @@ This backend is **100% original**:
 * The database connection management was custom-built to handle serverless lifecycle events.
 * No boilerplate generators were used; every route and middleware was manually configured.
 * **MERN Practice (Backend)** serves as a professional demonstration of backend engineering, database modeling, and API design.
+
 
 
