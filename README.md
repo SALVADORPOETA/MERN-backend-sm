@@ -6,7 +6,6 @@ The server is engineered for high performance and reliability, featuring a singl
 
 <img width="771" height="633" alt="mern-backend" src="https://github.com/user-attachments/assets/c82a3dec-8f9e-40d3-b326-779423634ae3" />
 
-
 ✨ **Overview**
 
 MERN Practice (Backend) is not just a simple server; it is a **production-ready API architecture** that emphasizes:
@@ -109,4 +108,5 @@ This backend is **100% original**:
 * The database connection management was custom-built to handle serverless lifecycle events.
 * No boilerplate generators were used; every route and middleware was manually configured.
 * **MERN Practice (Backend)** serves as a professional demonstration of backend engineering, database modeling, and API design.
+
 
