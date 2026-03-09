@@ -51,7 +51,7 @@ MERN Practice (Backend) is not just a simple server; it is a **production-ready 
 git clone https://github.com/SALVADORPOETA/mern-practice-backend.git
 
 # Navigate into the project directory
-cd mern-practice-backend
+cd mern-backend-sm
 
 # Install dependencies
 npm install
@@ -108,6 +108,7 @@ This backend is **100% original**:
 * The database connection management was custom-built to handle serverless lifecycle events.
 * No boilerplate generators were used; every route and middleware was manually configured.
 * **MERN Practice (Backend)** serves as a professional demonstration of backend engineering, database modeling, and API design.
+
 
 
 
