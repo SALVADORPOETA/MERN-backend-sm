@@ -9,23 +9,54 @@ const app = express()
 // Middlewares
 app.use(cors())
 app.use(express.json())
-app.use(async (req, res, next) => {
-  await connectDB()
-  next()
-})
+// app.use(async (req, res, next) => {
+//   await connectDB()
+//   next()
+// })
 
-// Conexión a la Base de Datos
+// Conexión a la Base de Datos con Fallback
 let isConnected = false
+
 const connectDB = async () => {
   if (isConnected) return
+
+  // 1. Intento con MongoDB Atlas (Nube)
   try {
-    const db = await mongoose.connect(process.env.MONGO_URI)
+    console.log('⏳ Intentando conectar a MongoDB Atlas...')
+    const db = await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 5000, // Si en 5s no hay internet, salta al catch
+    })
     isConnected = db.connections[0].readyState
-    console.log('¡Conectado a Base de Datos!')
-  } catch (error) {
-    console.error('Error conectando a Base de Datos: ', error.message)
+    console.log('✅ ¡Conectado a MongoDB Atlas (Nube)!')
+  } catch (atlasError) {
+    // 2. Si Atlas falla, intento con Compass (Local)
+    console.warn('⚠️ Atlas falló. Intentando conectar a Compass (Local)...')
+
+    try {
+      const localDb = await mongoose.connect(process.env.MONGO_URI_COMPASS)
+      isConnected = localDb.connections[0].readyState
+      console.log('🏠 ¡Conectado a Base de Datos Local (Compass)!')
+    } catch (localError) {
+      console.error(
+        '❌ Error crítico: No se pudo conectar ni a Atlas ni a Local.',
+      )
+      console.error('Detalle Local:', localError.message)
+    }
   }
 }
+
+// Conexión a la Base de Datos
+// let isConnected = false
+// const connectDB = async () => {
+//   if (isConnected) return
+//   try {
+//     const db = await mongoose.connect(process.env.MONGO_URI)
+//     isConnected = db.connections[0].readyState
+//     console.log('¡Conectado a Base de Datos!')
+//   } catch (error) {
+//     console.error('Error conectando a Base de Datos: ', error.message)
+//   }
+// }
 
 // mongoose
 //   .connect(process.env.MONGO_URI)
@@ -137,10 +168,28 @@ app.put('/items/:id', async (req, res) => {
   }
 })
 
+// const PORT = process.env.PORT || 5000
+
+// app.listen(PORT, () => {
+//   console.log(`🚀 Servidor encendido en el puerto ${PORT}`)
+// })
+
+// module.exports = app
+
 const PORT = process.env.PORT || 5000
 
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor encendido en el puerto ${PORT}`)
-})
+// Nueva lógica de inicio
+const startServer = async () => {
+  try {
+    // Intentamos conectar antes de abrir el puerto
+    await connectDB()
 
-module.exports = app
+    app.listen(PORT, () => {
+      console.log(`🚀 Servidor encendido en el puerto ${PORT}`)
+    })
+  } catch (error) {
+    console.error('❌ No se pudo iniciar el servidor debido a la BD', error)
+  }
+}
+
+startServer()
