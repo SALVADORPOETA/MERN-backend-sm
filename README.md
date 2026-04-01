@@ -92,7 +92,7 @@ npm run dev
 📂 **Project Structure**
 
 ```text
-mern-practice-backend/
+mern-backend-sm/
 ├─ models/
 │  └─ Item.js         # Mongoose Schema & Data Model
 ├─ server.js          # Main Entry: Connection logic, Middlewares & Routes
@@ -108,6 +108,7 @@ This backend is **100% original**:
 * The database connection management was custom-built to handle serverless lifecycle events.
 * No boilerplate generators were used; every route and middleware was manually configured.
 * **MERN Practice (Backend)** serves as a professional demonstration of backend engineering, database modeling, and API design.
+
 
 
 
